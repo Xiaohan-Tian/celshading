@@ -348,6 +348,11 @@ def auto_shading_for_vroid_created_model(welded=False):
             convert_to_cel_shading_mat(so)
             print("...apply outline")
             create_outline(so, welded=welded)
+        elif so.name.find("_Bottoms_") > 0:
+            print("...apply celshading")
+            convert_to_cel_shading_mat(so)
+            print("...apply outline")
+            create_outline(so, welded=welded)
         elif so.name.find("_Shoes_") > 0:
             print("...apply celshading")
             convert_to_cel_shading_mat(so)

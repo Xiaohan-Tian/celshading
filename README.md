@@ -125,3 +125,10 @@ Once you have chosen the container object, click the "Auto Shading for VRoid Cre
 Note: This feature is experimental.
 
 Same as the "Auto Shading for VRoid Created Model" feature, the only difference is this feature will apply the welded outline to the model instead of regular outline.
+
+## Credits
+- The add-on is developed by me and is licensed under the MIT License.
+- The PMX Model "Arcueid" was created by me, and the original character was designed by TYPE-MOON in their work "Tsukihime."
+- The PMX Model "Saber" was also created by me, and the original character was designed by TYPE-MOON in their work "Fate/stay night."
+- All the 3D scenes depicted in the images within this document were created by me.
+

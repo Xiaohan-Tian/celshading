@@ -1,3 +1,2 @@
-- Added README.md
-- Fixed the issue when converting a non-textured material to emission material.
-- Rename the add-on to a more generic name.
+- Updated the README.md file.
+- Fixed an issue where converting a VRoid-built PMX model resulted in the Bottoms component missing the CelShading material.
