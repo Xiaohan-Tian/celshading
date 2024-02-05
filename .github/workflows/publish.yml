@@ -16,8 +16,11 @@ jobs:
 
     - name: Zip source files
       run: |
-        zip -r artifact.zip src/
-        echo "Source files zipped into artifact.zip."
+        mkdir rasqui-celshading
+        cp -r src/* rasqui-celshading/
+        zip -r artifact.zip rasqui-celshading/
+        rm -rf rasqui-celshading
+        echo "Source files zipped into artifact.zip with root folder renamed."
 
     - name: Read Changelog
       id: changelog
