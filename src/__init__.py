@@ -8,7 +8,7 @@ bl_info = {
     "name": "Rasqui's Simple CelShading ${version}",
     "description": "A simple celshading add-on designed for Blender 3.4+",
     "author": "Rasqui",
-    "version": (0, 2, 3),
+    "version": (0, 2, 4),
     "blender": (3, 40, 0),
 }
 
