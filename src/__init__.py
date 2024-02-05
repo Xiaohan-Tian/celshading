@@ -5,10 +5,10 @@ from math import *
 
 
 bl_info = {
-    "name": "Rasqui's Simple CelShading ${version}",
+    "name": "Simple CelShading ${version}",
     "description": "A simple celshading add-on designed for Blender 3.4+",
-    "author": "Rasqui",
-    "version": (0, 2, 4),
+    "author": "X.Tian",
+    "version": (0, 5, 0),
     "blender": (3, 40, 0),
 }
 
@@ -168,6 +168,18 @@ def convert_to_emission_shading(so):
     mat_nodes = mat_target.node_tree.nodes
     mat_links = mat_target.node_tree.links
 
+    base_color = (1.0, 1.0, 1.0, 1.0)
+    node_img = find_mat_node_by_type(mat_target, "TEX_IMAGE")
+    simple_color = False
+    if node_img is None:
+        simple_color = True
+
+        node_bsdf_principled = find_mat_node_by_type(mat_target, "BSDF_PRINCIPLED")
+        base_color = node_bsdf_principled.inputs['Base Color'].default_value
+
+        node_img = mat_nodes.new(type='ShaderNodeRGB')
+        node_img.outputs[0].default_value = base_color
+
     del_mat_node(mat_target, "Principled BSDF")
 
     # Create Nodes
@@ -182,12 +194,12 @@ def convert_to_emission_shading(so):
     node_out = find_mat_node_by_type(mat_target, "OUTPUT_MATERIAL")
     node_out.location = Vector((900, 1152))
 
-    node_img = find_mat_node_by_type(mat_target, "TEX_IMAGE")
+    # node_img = find_mat_node_by_type(mat_target, "TEX_IMAGE")
     node_img.location = Vector((-860, 1280))
 
     # Connect Nodes
     mat_links.new(node_img.outputs[0], node_mixs_main.inputs[2])
-    mat_links.new(node_img.outputs[1], node_mixs_main.inputs[0])
+    mat_links.new(node_img.outputs[0 if simple_color else 1], node_mixs_main.inputs[0])
     mat_links.new(node_trans_main.outputs[0], node_mixs_main.inputs[1])
     mat_links.new(node_mixs_main.outputs[0], node_out.inputs[0])
 
@@ -471,7 +483,7 @@ class AutoCelShadingForVRoidModelWithWeldedOutline(bpy.types.Operator):
     
     
 class RasquiCelShading(bpy.types.Panel):
-    bl_label = "Rasqui's CelShading v${version}"
+    bl_label = "Simple CelShading v${version}"
     bl_idname = "rasqui.cel_shading" + const["stage"]
     bl_space_type = "VIEW_3D" # will be in "3D Viewport" view
     bl_region_type = "UI"

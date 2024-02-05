@@ -37,10 +37,10 @@ jobs:
 
     - name: Zip source files
       run: |
-        mkdir rasqui-celshading
-        cp -r src/* rasqui-celshading/
-        zip -r artifact.zip rasqui-celshading/
-        rm -rf rasqui-celshading
+        mkdir simple-celshading
+        cp -r src/* simple-celshading/
+        zip -r artifact.zip simple-celshading/
+        rm -rf simple-celshading
         echo "Source files zipped into artifact.zip with root folder renamed."
 
     - name: Read Changelog
@@ -68,5 +68,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./artifact.zip
-        asset_name: rasqui_celshading-v${{ steps.version_update.outputs.new_version }}.zip
+        asset_name: simple_celshading-v${{ steps.version_update.outputs.new_version }}.zip
         asset_content_type: application/zip

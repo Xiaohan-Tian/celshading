@@ -1,1 +1,3 @@
-- Initial release of the Rasqui's Simple CelShading add-on.
+- Added README.md
+- Fixed the issue when converting a non-textured material to emission material.
+- Rename the add-on to a more generic name.
