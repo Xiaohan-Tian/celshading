@@ -11,6 +11,18 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Increase version and update file
+      id: version_increase
+      run: python3 .github/increase_version.py
+
+    - name: Commit and push if changed
+      run: |
+        git config user.email "actions@github.com
+        git config user.name "GitHub Actions"
+        git add __init__.py
+        git commit -m "Update version number"
+        git push origin main
+
+    - name: Update file with new version number
       id: version_update
       run: python3 .github/update_version.py
 
