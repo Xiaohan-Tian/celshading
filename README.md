@@ -129,6 +129,6 @@ Same as the "Auto Shading for VRoid Created Model" feature, the only difference 
 ## Credits
 - The add-on is developed by me and is licensed under the MIT License.
 - The PMX Model "Arcueid" was created by me, and the original character was designed by TYPE-MOON in their work "Tsukihime."
-- The PMX Model "Saber" was also created by me, and the original character was designed by TYPE-MOON in their work "Fate/stay night."
+- The PMX Model "Saber" was created by me, and the original character was designed by TYPE-MOON in their work "Fate/stay night."
 - All the 3D scenes depicted in the images within this document were created by me.
 
