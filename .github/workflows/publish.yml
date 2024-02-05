@@ -1,0 +1,65 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish-addon:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Increase version and update file
+      run: |
+        import re
+        print("Starting the process to update version...")
+        with open('__init__.py', 'r') as file:
+            content = file.read()
+            version = re.search(r'\"version\": \((\d+), (\d+), (\d+)\)', content).groups()
+            new_version = (int(version[0]), int(version[1]), int(version[2]) + 1)
+            new_version_str = f'{new_version[0]}.{new_version[1]}.{new_version[2]}'
+            print(f'New version: {new_version_str}')
+            content = re.sub(r'\$\{version\}', new_version_str, content)
+            content = re.sub(r'\"version\": \(\d+, \d+, \d+\)', f'\"version\": {new_version}', content)
+        with open('__init__.py', 'w') as file:
+            file.write(content)
+        print("Version updated in __init__.py.")
+
+    - name: Zip source files
+      run: |
+        print("Zipping the source files...")
+        zip -r artifact.zip src/
+        print("Source files zipped into artifact.zip.")
+
+    - name: Read Changelog
+      id: changelog
+      run: |
+        changelog=$(cat src/latest_changelog.md)
+        echo "::set-output name=changelog::$changelog"
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ format('v{0}.{1}.{2}', new_version[0], new_version[1], new_version[2]) }}
+        release_name: Release ${{ format('v{0}.{1}.{2}', new_version[0], new_version[1], new_version[2]) }}
+        body: ${{ steps.changelog.outputs.changelog }}
+        draft: false
+        prerelease: false
+      run: |
+        print("Release created on GitHub.")
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact.zip
+        asset_name: rasqui_celshading-${{ format('{0}.{1}.{2}', new_version[0], new_version[1], new_version[2]) }}.zip
+        asset_content_type: application/zip
+      run: |
+        print("Release asset uploaded.")

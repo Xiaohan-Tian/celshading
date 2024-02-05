@@ -1,0 +1,1 @@
+- Initial release of the Rasqui's Simple CelShading add-on.
