@@ -9,6 +9,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.PUBLISH_CELSHADING_TOKEN }}
 
     - name: Increase version and update file
       id: version_increase
