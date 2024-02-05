@@ -21,6 +21,8 @@ jobs:
         git add src/__init__.py
         git commit -m "Update version number"
         git push origin main
+      env:
+        GIT_TOKEN: ${{ secrets.PUBLISH_CELSHADING_TOKEN }}
 
     - name: Update file with new version number
       id: version_update
