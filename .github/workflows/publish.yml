@@ -16,7 +16,7 @@ jobs:
 
     - name: Commit and push if changed
       run: |
-        git config user.email "actions@github.com
+        git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
         git add __init__.py
         git commit -m "Update version number"
