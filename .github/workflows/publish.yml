@@ -13,6 +13,7 @@ jobs:
     - name: Increase version and update file
       id: version_update
       run: |
+        #!/usr/bin/env python3
         import re
         with open('__init__.py', 'r') as file:
             content = file.read()
